@@ -14,3 +14,9 @@ build_compile_commands(path = ".", debug = FALSE)
 \description{
 Generate Compilation Database for Use with Clang Tools
 }
+\examples{
+\dontrun{
+build_compile_commands(path = ".")
+}
+
+}

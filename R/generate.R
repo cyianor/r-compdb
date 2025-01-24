@@ -90,9 +90,7 @@ build_compile_commands <- function(path = ".", debug = FALSE) {
 
   cli::cli_alert_info("Preparing package...")
 
-  pkg_tmpdir <- tempfile()
-  dir.create(pkg_tmpdir)
-  on.exit(unlink(pkg_tmpdir, recursive = TRUE), add = TRUE)
+  pkg_tmpdir <- withr::local_tempdir(pattern = "compdb-pkg")
 
   pkg <- pkgbuild::build(
     path = path,
@@ -117,9 +115,7 @@ build_compile_commands <- function(path = ".", debug = FALSE) {
     file.create(makevars$path)
   }
 
-  json_tmpdir <- tempfile()
-  dir.create(json_tmpdir)
-  on.exit(unlink(json_tmpdir, recursive = TRUE), add = TRUE)
+  json_tmpdir <- withr::local_tempdir(pattern = "compdb-json")
   json_tmpfiles <- file.path(json_tmpdir, "$@.json")
 
   size <- file.size(makevars$path)
@@ -141,9 +137,7 @@ build_compile_commands <- function(path = ".", debug = FALSE) {
 
   cli::cli_alert_info("Installing package to temporary location...")
 
-  install_tmpdir <- tempfile()
-  dir.create(install_tmpdir)
-  on.exit(unlink(install_tmpdir, recursive = TRUE), add = TRUE)
+  install_tmpdir <- withr::local_tempdir(pattern = "compdb-install")
 
   callr::rcmd_safe(
     cmd = "INSTALL",

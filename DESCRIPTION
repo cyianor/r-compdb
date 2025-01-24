@@ -18,6 +18,7 @@ Imports:
     callr,
     cli,
     pkgbuild,
-    utils
+    utils,
+    withr
 URL: https://github.com/cyianor/r-compdb
 BugReports: https://github.com/cyianor/r-compdb/issues
