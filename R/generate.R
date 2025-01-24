@@ -137,12 +137,11 @@ build_compile_commands <- function(path = ".", debug = FALSE) {
 
   cli::cli_alert_info("Installing package to temporary location...")
 
-  install_tmpdir <- withr::local_tempdir(pattern = "compdb-install")
+  withr::local_temp_libpaths()
 
   callr::rcmd_safe(
     cmd = "INSTALL",
     cmdargs = c(
-      "-l", install_tmpdir,
       "--clean",
       "--preclean",
       pkg_path
