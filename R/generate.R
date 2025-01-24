@@ -69,6 +69,11 @@ get_makevars <- function(path = ".") {
 #' @param path The path of the package
 #' @param debug Set to TRUE to get verbose output
 #'
+#' @examples
+#' \dontrun{
+#' build_compile_commands(path = ".")
+#' }
+#'
 #' @export
 build_compile_commands <- function(path = ".", debug = FALSE) {
   if (!check_clang()) {
