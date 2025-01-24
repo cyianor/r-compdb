@@ -15,26 +15,7 @@ check_clang <- function() {
 #'         \item{path}{The absolute path to the Makevars file}
 #'         \item{exists}{Whether or not the Makevars file currently exists}
 get_makevars <- function(path = ".") {
-  if (!pkgbuild::pkg_has_src(path)) {
-    cli::cli_abort(c(
-      "No src directory found.",
-      "i" = "Compilation database not necessary"
-    ))
-  }
-
   src_path <- file.path(path, "src")
-
-  # For now, abort for packages using a Makefile
-  if (
-    file.exists(file.path(src_path, "Makefile"))
-    || file.exists(file.path(src_path, "Makefile.win"))
-    || file.exists(file.path(src_path, "Makefile.ucrt"))
-  ) {
-    cli::cli_abort(c(
-      "Package is using a Makefile",
-      "i" = "compdb currently only works for R packages relying on Makevars"
-    ))
-  }
 
   makevars_candidates <- c(
     "Makevars.in", "Makevars", "Makevars.win", "Makevars.ucrt"
@@ -83,6 +64,27 @@ build_compile_commands <- function(path = ".", debug = FALSE) {
         "Ensure that `R CMD CONFIG CXX` points to version of",
         "the clang compiler"
       )
+    ))
+  }
+
+  if (!pkgbuild::pkg_has_src(path)) {
+    cli::cli_abort(c(
+      "No src directory found.",
+      "i" = "Compilation database not necessary"
+    ))
+  }
+
+  src_path <- file.path(path, "src")
+
+  # For now, abort for packages using a Makefile
+  if (
+    file.exists(file.path(src_path, "Makefile"))
+    || file.exists(file.path(src_path, "Makefile.win"))
+    || file.exists(file.path(src_path, "Makefile.ucrt"))
+  ) {
+    cli::cli_abort(c(
+      "Package is using a Makefile",
+      "i" = "compdb currently only works for R packages relying on Makevars"
     ))
   }
 
