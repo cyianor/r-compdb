@@ -64,7 +64,8 @@ The package at `path` is built as a source package to a temporary location.
 If the package already contains a `Makevars` (or `Makevars.win`/`Makevars.ucrt`)
 file, it is modified at the temporary location to include
 `PKG_CPPFLAGS += -MJ \@.json` which will prompt `clang` to generate a
-compilation database for each file it processes.
+compilation database for each file it processes. If no `Makevars` file exists,
+a new one is created.
 The package is then installed to a temporary location which triggers
 compilation of all source files and thereby generates the
 compilation databases.
