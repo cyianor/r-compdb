@@ -22,3 +22,8 @@ Imports:
     withr
 URL: https://github.com/cyianor/r-compdb
 BugReports: https://github.com/cyianor/r-compdb/issues
+Suggests: 
+    fs,
+    jsonlite,
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3

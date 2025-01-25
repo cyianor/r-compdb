@@ -1,0 +1,7 @@
+Package: testMakevars
+Title: Test package to check a single Makevars works
+License: MIT
+Description:
+Author: Felix Held <felix.held@gmail.com>
+Maintainer: Felix Held <felix.held@gmail.com>
+Version: 0.1
