@@ -213,8 +213,8 @@ build_compile_commands <- function(path = ".", debug = FALSE) {
     file = file.path(path, "src", "compile_commands.json")
   )
 
-  add_ignore(".gitignore", c("compile_commands.json"))
-  add_ignore(".Rbuildignore", c("compile_commands\\.json"))
+  add_ignore(".gitignore", c("compile_commands.json"), path = path)
+  add_ignore(".Rbuildignore", c("compile_commands\\.json"), path = path)
 
   cli::cli_alert_success("Compilation database successfully generated.")
 }
