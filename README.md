@@ -1,12 +1,5 @@
 # compdb
 
-<!-- badges: start -->
-[![Lifecycle:
-experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
-<!-- [![CRAN
-status](https://www.r-pkg.org/badges/version/compdb)](https://CRAN.R-project.org/package=compdb) -->
-<!-- badges: end -->
-
 Many modern C++ development tools in the clang/LLVM toolchain, such as
 clang-tidy or clangd, rely on the presence of a [compilation database in
 JSON format](https://clang.llvm.org/docs/JSONCompilationDatabase.html).
