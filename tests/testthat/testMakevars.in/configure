@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# Just some silly example for test purposes
+
+CXX_STD= CXX11
+sed -e "s|@CXX_STD@|${CXX_STD}|" \
+    src/Makevars.in > src/Makevars
