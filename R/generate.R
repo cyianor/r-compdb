@@ -17,6 +17,39 @@ has_clang <- function() {
   grepl("clang", cc) && grepl("clang", cxx)
 }
 
+#' Add to ignore file
+#'
+#' @param file Either ".Rbuildignore" or ".gitignore"
+#' @param add The lines to add
+#' @param path Path to the package
+#'
+#' @return Returns TRUE invisibly
+#'
+#' @export
+add_ignore <- function(file, add, path = ".") {
+  file_path <- file.path(path, file)
+
+  if (file.exists(file_path)) {
+    existing <- readLines(
+      withr::local_connection(file(file_path, "rb", encoding = "utf-8")),
+      encoding = "UTF-8"
+    )
+  } else {
+    existing <- character()
+  }
+  new <- setdiff(add, existing)
+  cli::cli_bullets(c("v" = "Adding {.val {new}} to {.path {file_path}}."))
+
+  writeLines(
+    enc2utf8(c(existing, new)),
+    withr::local_connection(file(file_path, "wb", encoding = "utf-8")),
+    sep = "\n",
+    useBytes = TRUE
+  )
+
+  invisible(TRUE)
+}
+
 #' Determine Path to Makevars File and Check if it Already Exists
 #'
 #' @param path The path of the package
@@ -179,6 +212,9 @@ build_compile_commands <- function(path = ".", debug = FALSE) {
     paste0("[", paste(files, collapse = ",\n"), "]"),
     file = file.path(path, "src", "compile_commands.json")
   )
+
+  add_ignore(".gitignore", c("compile_commands.json"))
+  add_ignore(".Rbuildignore", c("compile_commands\\.json"))
 
   cli::cli_alert_success("Compilation database successfully generated.")
 }
