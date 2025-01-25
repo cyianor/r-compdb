@@ -1,5 +1,5 @@
-Package: testMakevars
-Title: Test package to check build works with Makevars
+Package: testNoSrc
+Title: Test package to check abort without src directory
 License: MIT
 Description:
 Author: Felix Held <felix.held@gmail.com>

@@ -1,5 +1,5 @@
 Package: testMakevars
-Title: Test package to check build works with Makevars
+Title: Test package to check abort with Makefile
 License: MIT
 Description:
 Author: Felix Held <felix.held@gmail.com>

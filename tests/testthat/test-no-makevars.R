@@ -3,7 +3,7 @@ test_that("build compile commands", {
   skip_if_not(has_clang())
 
   pkg <- withr::local_tempdir()
-  fs::dir_copy(test_path("testMakevars"), pkg, overwrite = TRUE)
+  fs::dir_copy(test_path("testNoMakevars"), pkg, overwrite = TRUE)
 
   suppressMessages(build_compile_commands(pkg))
 
@@ -15,7 +15,7 @@ test_that("check that right number of entries is produced", {
   skip_if_not(has_clang())
 
   pkg <- withr::local_tempdir()
-  fs::dir_copy(test_path("testMakevars"), pkg, overwrite = TRUE)
+  fs::dir_copy(test_path("testNoMakevars"), pkg, overwrite = TRUE)
 
   suppressMessages(build_compile_commands(pkg))
 

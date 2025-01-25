@@ -1,7 +1,17 @@
+#' Checks that We are on a Unix Platform
+#'
+#' @return A logical indicating whether we are on a Unix platform
+#' @export
+is_unix <- function() {
+  .Platform$OS.type == "unix"
+}
+
+
 #' Check Whether a Clang Toolchain is Being Used
 #'
 #' @return A logical indicating whether clang is used as a compiler
-check_clang <- function() {
+#' @export
+has_clang <- function() {
   cc <- pkgbuild::rcmd_build_tools("CONFIG", "CC", quiet = TRUE)$stdout
   cxx <- pkgbuild::rcmd_build_tools("CONFIG", "CXX", quiet = TRUE)$stdout
   grepl("clang", cc) && grepl("clang", cxx)
@@ -18,7 +28,7 @@ get_makevars <- function(path = ".") {
   src_path <- file.path(path, "src")
 
   makevars_candidates <- c(
-    "Makevars.in", "Makevars", "Makevars.win", "Makevars.ucrt"
+    "Makevars.in", "Makevars"
   )
 
   makevars <- NULL
@@ -32,11 +42,7 @@ get_makevars <- function(path = ".") {
   }
 
   if (is.null(makevars)) {
-    if (.Platform$OS.type == "windows") {
-      makevars <- file.path(src_path, "Makevars.win")
-    } else {
-      makevars <- file.path(src_path, "Makevars")
-    }
+    makevars <- file.path(src_path, "Makevars")
   }
 
   list(
@@ -57,7 +63,14 @@ get_makevars <- function(path = ".") {
 #'
 #' @export
 build_compile_commands <- function(path = ".", debug = FALSE) {
-  if (!check_clang()) {
+  if (!is_unix()) {
+    cli::cli_abort(c(
+      "Platform is not \"unix\"",
+      "i" = "This package currently only supports unix platforms."
+    ))
+  }
+
+  if (!has_clang()) {
     cli::cli_abort(c(
       "Clang toolchain required",
       "i" = paste(
@@ -77,11 +90,7 @@ build_compile_commands <- function(path = ".", debug = FALSE) {
   src_path <- file.path(path, "src")
 
   # For now, abort for packages using a Makefile
-  if (
-    file.exists(file.path(src_path, "Makefile"))
-    || file.exists(file.path(src_path, "Makefile.win"))
-    || file.exists(file.path(src_path, "Makefile.ucrt"))
-  ) {
+  if (file.exists(file.path(src_path, "Makefile"))) {
     cli::cli_abort(c(
       "Package is using a Makefile",
       "i" = "compdb currently only works for R packages relying on Makevars"

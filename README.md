@@ -1,10 +1,6 @@
-
-<!-- README.md is generated from README.Rmd. Please edit that file -->
-
 # compdb
 
 <!-- badges: start -->
-
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![CRAN
@@ -21,11 +17,12 @@ process to generate such a compilation database.
 
 1.  A full package build including compilation is necessary to generate
     the compilation database.
-
-2.  Currently, this method only works for packages utilizing the
+2.  This package is purely meant for platforms that support R built with clang,
+    which essentially excludes Windows. Rtools is built around GCC and I am
+    not aware of clang being used within the R world on Windows.
+3.  Currently, this method only works for packages utilizing the
     standard R build process, i.e. the only modifications to the build
-    process come in the form of
-    `Makevars`/`Makevars.win`/`Makevars.ucrt`, or the configurable
+    process come in the form of `Makevars`, or the configurable
     variant `Makevars.in`, in the package’s `src` directory. This
     supports a broad range of packages since it allows for custom
     `configure` files as long as they do not create a `Makevars` file
@@ -57,13 +54,13 @@ file called `compile_commands.json` in the package’s `src/` directory.
 ## How it works
 
 The package at `path` is built as a source package to a temporary
-location. If the package already contains a `Makevars` (or
-`Makevars.win`/`Makevars.ucrt`) file, it is modified at the temporary
-location to include `PKG_CPPFLAGS += -MJ \@.json` which will prompt
-`clang` to generate a compilation database for each file it processes.
-If no `Makevars` file exists, a new one is created. The package is then
-installed to a temporary location which triggers compilation of all
-source files and thereby generates the compilation databases.
+location. If the package already contains a `Makevars` file, it is
+modified at the temporary location to include `PKG_CPPFLAGS += -MJ \@.json`
+which will prompt `clang` to generate a compilation database for each
+file it processes. If no `Makevars` file exists, a new one is created.
+The package is then installed to a temporary location which triggers
+compilation of all source files and thereby generates the
+compilation databases.
 
 Finally, the compilation databases are merged and the directory of each
 file in the compilation database is corrected from the temporary
