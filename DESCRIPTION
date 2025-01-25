@@ -10,8 +10,11 @@ Description: Many modern C/C++ development tools in the clang/LLVM toolchain,
   This package temporarily injects additional build flags into the R build
   process to generate such a compilation database.
 License: MIT + file LICENSE
+Language: en-US
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
+OS_type: unix
+SystemRequirements: Clang >= 5.0
 RoxygenNote: 7.3.2
 Imports: 
     tools,
