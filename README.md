@@ -37,7 +37,7 @@ process to generate such a compilation database.
 You can install the development version of compdb like so:
 
 ``` r
-remotes::install_github("cyianor/compdb")
+remotes::install_github("cyianor/r-compdb")
 ```
 
 ## Example
