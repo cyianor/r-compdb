@@ -12,8 +12,8 @@ is_unix <- function() {
 #' @return A logical indicating whether clang is used as a compiler
 #' @export
 has_clang <- function() {
-  cc <- pkgbuild::rcmd_build_tools("CONFIG", "CC", quiet = TRUE)$stdout
-  cxx <- pkgbuild::rcmd_build_tools("CONFIG", "CXX", quiet = TRUE)$stdout
+  cc <- pkgbuild::rcmd_build_tools("config", "CC", quiet = TRUE)$stdout
+  cxx <- pkgbuild::rcmd_build_tools("config", "CXX", quiet = TRUE)$stdout
   grepl("clang", cc) && grepl("clang", cxx)
 }
 
@@ -107,7 +107,7 @@ build_compile_commands <- function(path = ".", debug = FALSE) {
     cli::cli_abort(c(
       "Clang toolchain required",
       "i" = paste(
-        "Ensure that `R CMD CONFIG CXX` points to version of",
+        "Ensure that `R CMD config CXX` points to version of",
         "the clang compiler"
       )
     ))
