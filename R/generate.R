@@ -24,8 +24,6 @@ has_clang <- function() {
 #' @param path Path to the package
 #'
 #' @return Returns TRUE invisibly
-#'
-#' @export
 add_ignore <- function(file, add, path = ".") {
   file_path <- file.path(path, file)
 
@@ -88,6 +86,8 @@ get_makevars <- function(path = ".") {
 #'
 #' @param path The path of the package
 #' @param debug Set to TRUE to get verbose output
+#'
+#' @return This function invisibly returns TRUE on success.
 #'
 #' @examples
 #' \dontrun{
@@ -217,4 +217,6 @@ build_compile_commands <- function(path = ".", debug = FALSE) {
   add_ignore(".Rbuildignore", c("compile_commands\\.json"), path = path)
 
   cli::cli_alert_success("Compilation database successfully generated.")
+
+  invisible(TRUE)
 }

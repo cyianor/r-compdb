@@ -11,6 +11,9 @@ build_compile_commands(path = ".", debug = FALSE)
 
 \item{debug}{Set to TRUE to get verbose output}
 }
+\value{
+This function invisibly returns TRUE on success.
+}
 \description{
 Generate Compilation Database for Use with Clang Tools
 }
