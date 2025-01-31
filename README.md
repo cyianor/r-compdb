@@ -33,6 +33,12 @@ You can install the development version of compdb like so:
 remotes::install_github("cyianor/r-compdb")
 ```
 
+You can install the current stable version of compdb from CRAN like so:
+
+``` r
+install.packages("compdb")
+```
+
 ## Example
 
 Using this package is simple and only requires a call to
